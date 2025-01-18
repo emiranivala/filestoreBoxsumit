@@ -112,7 +112,7 @@ async def handle_callback(_, query):
         if task == "database":
             await tools_func.add_channel(query)
         elif task == "force":
-            await tools_func.add_foce_channel(query)
+            await tools_func.add_force_channel(query)
         elif task == "shortener":
             await tools_func.add_shortener(query)
         else:
@@ -123,7 +123,7 @@ async def handle_callback(_, query):
         if task == "database":
             await tools_func.delete_channel(query)
         elif task == "force":
-            await tools_func.delete_foce_channel(query)
+            await tools_func.delete_force_channel(query)
         elif task == "shortener":
             await tools_func.delete_shortener(query)
         else:
@@ -134,7 +134,7 @@ async def handle_callback(_, query):
         if task == "database":
             await tools_func.view_channel(query)
         elif task == "force":
-            await tools_func.view_foce_channel(query)
+            await tools_func.view_force_channel(query)
         elif task == "shortener":
             await tools_func.view_shortener(query)
         else:
