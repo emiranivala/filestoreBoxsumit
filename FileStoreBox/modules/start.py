@@ -25,7 +25,7 @@ async def start(_, message):
     else:
         await message.reply_photo(
             photo="https://envs.sh/Hpz.jpg",
-            caption=script.START_TXT.format(message.from_user.first_name),
+            caption=script.START_TEXT.format(message.from_user.first_name),
             reply_markup=button
         )
 
