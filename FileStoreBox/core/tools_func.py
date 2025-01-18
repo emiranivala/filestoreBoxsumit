@@ -63,7 +63,7 @@ async def add_shortener(query):
     await query.message.reply_text("**✅ Successfully set you shortener url and key.**")
 
 async def delete_shortener(query):
-    data = await db.get_data(query.from_user.id)  
+    data = await toolsdb.get_data(query.from_user.id)  
     if data and data.get("api_url") and data.get("api_key"):
       await toolsdb.remove_shortener(query.from_user.id)
       await query.answer("✅ Successfully removed your shortener url and key.", show_alert=True)
@@ -72,7 +72,7 @@ async def delete_shortener(query):
 
 
 async def view_shortener(query):
-    data = await db.get_data(query.from_user.id)
+    data = await toolsdb.get_data(query.from_user.id)
     if data and data.get("api_url") and data.get("api_key"):
        api_key = data.get("api_key")
        api_url = data.get("api_url")
