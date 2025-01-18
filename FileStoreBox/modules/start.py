@@ -42,6 +42,39 @@ buttons = InlineKeyboardMarkup([
 
 
 
+buttons1 = InlineKeyboardMarkup([
+	  [                
+                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_database")
+            ],[                
+                InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_database"),
+                InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_database")
+            ],[
+                InlineKeyboardButton("ʙᴀᴄᴋ", callback_data="tools_"),
+            ]])
+
+
+buttons2 = InlineKeyboardMarkup([
+	  [                
+                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_force")
+            ],[                
+                InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_force"),
+                InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_force")
+            ],[
+                InlineKeyboardButton("ʙᴀᴄᴋ", callback_data="tools_"),
+            ]])
+
+
+buttons3 = InlineKeyboardMarkup([
+	  [                
+                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_shortener")
+            ],[                
+                InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_shortener"),
+                InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_shortener")
+            ],[
+                InlineKeyboardButton("ʙᴀᴄᴋ", callback_data="tools_"),
+            ]])
+
+
 
 
 @app.on_callback_query()
