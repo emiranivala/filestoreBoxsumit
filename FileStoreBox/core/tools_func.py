@@ -4,26 +4,27 @@ from FileStoreBox.core.mongo import toolsdb
 # ---------------- Database-Channel ------------------- #
 
 async def add_channel(query):    
-    sto = await app.ask(query.message.chat.id, text="Give me a caption to set.")
+    sto = await app.ask(query.message.chat.id, text="<i>Give me your channel ID that you will use as a database.</i>")
     channel = sto.text
     await toolsdb.set_channel(query.from_user.id, channel)
-    await query.message.reply_text("✅ Your caption has been successfully set.")
+    await query.message.reply_text("**✅ Successfully set your channel ID as a database where your media will be stored.**")
 
 async def delete_channel(query):
     data = await toolsdb.get_data(query.from_user.id)  
     if data and data.get("channel_id"):
       await toolsdb.remove_channel(query.from_user.id)
-      await query.answer("☘️ Your session has been successfully deleted.", show_alert=True)
+      await query.answer("✅ Successfully removed your channel ID as a database.", show_alert=True)
     else:
-      await query.answer("👀 You haven't set any session !!", show_alert=True)    
-                                             
+      await query.answer("👀 You haven't set any channel ID !!", show_alert=True)    
+
+
 async def view_channel(query):
     data = await toolsdb.get_data(query.from_user.id)
     if data and data.get("channel_id"):
        channel_id = data.get("channel_id")
-       await query.message.reply_text(f"**Here is your string session**\n\n`{string_session}`")
+       await query.message.reply_text(f"**Here is your channel ID that you added as a database. All your data will be stored in this channel.**\n\n• `{channel_id}`")
     else:
-       await query.answer("👀 You haven't set any session !!", show_alert=True)
+       await query.answer("👀 You haven't set any channel ID !!", show_alert=True)
 
 # ---------------- Force-Channel ------------------- #
 async def add_force_channel(query):    
