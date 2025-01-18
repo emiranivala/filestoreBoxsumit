@@ -1,13 +1,4 @@
-git+https://github.com/Sumit0045/pyrogram
-aiohttp
-motor
+pyrofork
 tgcrypto
-aiofiles
 requests
-hachoir
-cloudscraper
-pycryptodome
-pytz
-pyromod
-json-repair
-telegraph
+motor
