@@ -57,10 +57,10 @@ async def view_force_channel(query):
 async def add_shortener(query):    
     aox = await app.ask(query.message.chat.id, text="**Send me your shortener api url**\n**Example**:- `https://modijiurl.com/api?`")
     api_url = aox.text
-    kox = await app.ask(query.message.chat.id, text="**Now Send me your api key**\n**Example**:- `818290dbdf8330715f3537ccdaddd064c5dc5530`")
+    kox = await app.ask(query.message.chat.id, text="**Now Send me your shortener api key**\n**Example**:- `818290dbdf8330715f3537ccdaddd064c5dc5530`")
     api_key = kox.text
     await toolsdb.set_shortener(query.from_user.id, api_url, api_key)
-    await query.message.reply_text("**✅ Successfully set you shotener url and key.**")
+    await query.message.reply_text("**✅ Successfully set you shortener url and key.**")
 
 async def delete_shortener(query):
     data = await db.get_data(query.from_user.id)  
