@@ -110,33 +110,33 @@ async def handle_callback(_, query):
     elif query.data.startswith("set"):
         task = query.data.split("_")[1]
         if task == "database":
-            await tools_func.add_channel(user_id)
+            await tools_func.add_channel(query)
         elif task == "force":
-            await tools_func.add_foce_channel(user_id)
+            await tools_func.add_foce_channel(query)
         elif task == "shortener":
-            await tools_func.add_shortener(user_id)
+            await tools_func.add_shortener(query)
         else:
             print("unknown set query")
 
     elif query.data.startswith("rm"):
         task = query.data.split("_")[1]
         if task == "database":
-            await tools_func.delete_channel(user_id)
+            await tools_func.delete_channel(query)
         elif task == "force":
-            await tools_func.delete_foce_channel(user_id)
+            await tools_func.delete_foce_channel(query)
         elif task == "shortener":
-            await tools_func.delete_shortener(user_id)
+            await tools_func.delete_shortener(query)
         else:
             print("unknown remove query")
 
     elif query.data.startswith("views"):
         task = query.data.split("_")[1]
         if task == "database":
-            await tools_func.view_channel(user_id)
+            await tools_func.view_channel(query)
         elif task == "force":
-            await tools_func.view_foce_channel(user_id)
+            await tools_func.view_foce_channel(query)
         elif task == "shortener":
-            await tools_func.view_shortener(user_id)
+            await tools_func.view_shortener(query)
         else:
             print("unknown view query")
 	
