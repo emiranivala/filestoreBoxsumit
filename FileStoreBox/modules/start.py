@@ -81,7 +81,7 @@ buttons3 = InlineKeyboardMarkup([
 async def handle_callback(_, query):
     if query.data == "home_":
         await query.message.edit_text(
-            script.START_TXT.format(query.from_user.mention),
+            script.START_TEXT.format(query.from_user.mention),
             reply_markup=button
         )
     elif query.data == "tools_":
