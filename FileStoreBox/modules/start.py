@@ -1,6 +1,7 @@
 from pyrogram import filters
 from FileStoreBox import app
 from FileStoreBox.core import script
+from FileStoreBox.core import tools_func
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 
@@ -79,6 +80,7 @@ buttons3 = InlineKeyboardMarkup([
 
 @app.on_callback_query()
 async def handle_callback(_, query):
+    user_id = query.from_user.id
     if query.data == "home_":
         await query.message.edit_text(
             script.START_TEXT.format(query.from_user.mention),
@@ -104,6 +106,40 @@ async def handle_callback(_, query):
             script.SHORTENER_TEXT,
             reply_markup=buttons3
         )
+	    
+    elif query.data.startswith("set"):
+        task = query.data.split("_")[1]
+        if task == "database":
+            await tools_func.add_channel(user_id)
+        elif task == "force":
+            await tools_func.add_foce_channel(user_id)
+        elif task == "shortener":
+            await tools_func.add_shortener(user_id)
+        else:
+            print("unknown set query")
+
+    elif query.data.startswith("rm"):
+        task = query.data.split("_")[1]
+        if task == "database":
+            await tools_func.delete_channel(user_id)
+        elif task == "force":
+            await tools_func.delete_foce_channel(user_id)
+        elif task == "shortener":
+            await tools_func.delete_shortener(user_id)
+        else:
+            print("unknown remove query")
+
+    elif query.data.startswith("views"):
+        task = query.data.split("_")[1]
+        if task == "database":
+            await tools_func.view_channel(user_id)
+        elif task == "force":
+            await tools_func.view_foce_channel(user_id)
+        elif task == "shortener":
+            await tools_func.view_shortener(user_id)
+        else:
+            print("unknown view query")
+	
     elif query.data == "maintainer_":
         await query.answer(
             "sᴏᴏɴ.... \nʙᴏᴛ ᴜɴᴅᴇʀ ɪɴ ᴍᴀɪɴᴛᴀɪɴᴀɴᴄᴇ",
@@ -118,4 +154,5 @@ async def handle_callback(_, query):
             print(f"Error deleting messages: {e}")
 
 
-                  
+
+		
