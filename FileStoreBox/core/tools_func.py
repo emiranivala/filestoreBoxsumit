@@ -26,28 +26,30 @@ async def view_channel(query):
     else:
        await query.answer("👀 You haven't set any channel ID !!", show_alert=True)
 
+
 # ---------------- Force-Channel ------------------- #
+
 async def add_force_channel(query):    
-    sos = await app.ask(query.message.chat.id, text="Give me a caption to set.")
+    sos = await app.ask(query.message.chat.id, text="<i>Give me your channel ID that you will use as a force channel.</i>")
     channel = sos.text
     await toolsdb.set_force_channel(query.from_user.id, channel)
-    await query.message.reply_text("✅ Your caption has been successfully set.")
+    await query.message.reply_text("**✅ Successfully set your force channel ID, where users will be required to join before they can use the bot.**")
 
 async def delete_force_channel(query):
     data = await toolsdb.get_data(query.from_user.id)  
     if data and data.get("channel_id"):
       await toolsdb.remove_force_channel(query.from_user.id)
-      await query.answer("☘️ Your session has been successfully deleted.", show_alert=True)
+      await query.answer("✅ Successfully removed your force channel ID.", show_alert=True)
     else:
-      await query.answer("👀 You haven't set any session !!", show_alert=True)    
+      await query.answer("👀 You haven't set any force channel ID !!", show_alert=True)    
                                              
 async def view_force_channel(query):
     data = await toolsdb.get_data(query.from_user.id)
     if data and data.get("force_channel"):
        force_channel = data.get("force_channel")
-       await query.message.reply_text(f"**Here is your string session**\n\n`{string_session}`")
+       await query.message.reply_text(f"**Here is your force channel ID, where users will be required to join before they can use the bot.**\n\n• `{force_channel}`")
     else:
-       await query.answer("👀 You haven't set any session !!", show_alert=True)
+       await query.answer("👀 You haven't set any force channel ID !!", show_alert=True)
 
 
 # ---------------- Shortener ------------------- #
