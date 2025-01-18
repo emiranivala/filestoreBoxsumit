@@ -33,7 +33,7 @@ async def start(_, message):
 
 buttons = InlineKeyboardMarkup([
       [
-          InlineKeyboardButton("Database", callback_data="database_"),          ,
+          InlineKeyboardButton("Database", callback_data="database_"),
           InlineKeyboardButton("Force", callback_data="force_"),
           InlineKeyboardButton("Shortener", callback_data="shortener_")
       ],[   
@@ -44,7 +44,7 @@ buttons = InlineKeyboardMarkup([
 
 buttons1 = InlineKeyboardMarkup([
 	  [                
-                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_database")
+                InlineKeyboardButton("✚ sᴇᴛ ᴅᴀᴛᴀʙᴀsᴇ", callback_data="set_database")
             ],[                
                 InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_database"),
                 InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_database")
@@ -55,7 +55,7 @@ buttons1 = InlineKeyboardMarkup([
 
 buttons2 = InlineKeyboardMarkup([
 	  [                
-                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_force")
+                InlineKeyboardButton("✚ sᴇᴛ ғᴏʀᴄᴇ ᴄʜᴀɴɴᴇʟ", callback_data="set_force")
             ],[                
                 InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_force"),
                 InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_force")
@@ -66,7 +66,7 @@ buttons2 = InlineKeyboardMarkup([
 
 buttons3 = InlineKeyboardMarkup([
 	  [                
-                InlineKeyboardButton("✚ sᴇᴛ sᴇssɪᴏɴ", callback_data="set_shortener")
+                InlineKeyboardButton("✚ sᴇᴛ sʜᴏʀᴛᴇɴᴇʀ", callback_data="set_shortener")
             ],[                
                 InlineKeyboardButton("❌ ʀᴇᴍᴏᴠᴇ", callback_data="rm_shortener"),
                 InlineKeyboardButton("📖 ᴠɪᴇᴡ", callback_data="views_shortener")
