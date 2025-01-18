@@ -55,28 +55,28 @@ async def view_force_channel(query):
 # ---------------- Shortener ------------------- #
 
 async def add_shortener(query):    
-    aox = await app.ask(query.message.chat.id, text="Send me the text you want to replace.")
+    aox = await app.ask(query.message.chat.id, text="**Send me your shortener api url**\n**Example**:- `https://modijiurl.com/api?`")
     api_url = aox.text
-    kox = await app.ask(query.message.chat.id, text="Send me the text you'd like to have replaced.")
+    kox = await app.ask(query.message.chat.id, text="**Now Send me your api key**\n**Example**:- `818290dbdf8330715f3537ccdaddd064c5dc5530`")
     api_key = kox.text
     await toolsdb.set_shortener(query.from_user.id, api_url, api_key)
-    await query.message.reply_text("✅ Your replace caption has been successfully set.")
+    await query.message.reply_text("**✅ Successfully set you shotener url and key.**")
 
 async def delete_shortener(query):
     data = await db.get_data(query.from_user.id)  
     if data and data.get("api_url") and data.get("api_key"):
       await toolsdb.remove_shortener(query.from_user.id)
-      await query.answer("☘️ Your replace caption has been successfully deleted.", show_alert=True)
+      await query.answer("✅ Successfully removed your shortener url and key.", show_alert=True)
     else:
-      await query.answer("👀 You haven't set any replace caption !!", show_alert=True)    
+      await query.answer("👀 You haven't set any shortener url and key !!", show_alert=True)    
 
 
 async def view_shortener(query):
     data = await db.get_data(query.from_user.id)
     if data and data.get("api_url") and data.get("api_key"):
-       replace = data.get("api_key")
-       to_replace = data.get("api_url")
-       await query.message.reply_text(f"**Your replace text:** `{replace}`\n\nYour to replace text: `{to_replace}`")
+       api_key = data.get("api_key")
+       api_url = data.get("api_url")
+       await query.message.reply_text(f"**Here is your shortener url and key:**\n\n**Api Url**: `{api_url}`\n**Api Key**: `{api_key}`")
     else:
-       await query.answer("👀 You haven't set any caption !!", show_alert=True)
+       await query.answer("👀 You haven't set any shortener url and key !!", show_alert=True)
 
