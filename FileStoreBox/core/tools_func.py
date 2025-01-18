@@ -37,7 +37,7 @@ async def add_force_channel(query):
 
 async def delete_force_channel(query):
     data = await toolsdb.get_data(query.from_user.id)  
-    if data and data.get("channel_id"):
+    if data and data.get("force_channel"):
       await toolsdb.remove_force_channel(query.from_user.id)
       await query.answer("✅ Successfully removed your force channel ID.", show_alert=True)
     else:
