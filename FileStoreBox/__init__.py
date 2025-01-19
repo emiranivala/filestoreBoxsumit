@@ -1,6 +1,6 @@
 import asyncio
 from pyrogram import Client
-from pyromod import app
+from pyromod import listen
 #from pyrogram.enums import ParseMode
 from config import API_ID, API_HASH, BOT_TOKEN
 
