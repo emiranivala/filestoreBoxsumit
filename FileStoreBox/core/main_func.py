@@ -115,3 +115,83 @@ async def fetch_files(_, message):
         return
 
 
+
+async def batch_files(_, message):
+    try:
+        encode_data = message.text.split("_")
+        decrypt_data = await base64_decrypt(encode_data[1])
+        parts = decrypt_data.split("_")
+        user_id = parts[0]
+        start_id = parts[1]
+        last_id = parts[2]
+    
+        try:
+            user = await app.get_users(user_id)
+        except:
+            pass
+
+        joined = await must_join(_, message, user_id)
+        if joined == 1:
+            return
+
+        data = await toolsdb.get_data(int(user_id))
+        force_channel = data.get("force_channel")
+        database_channel = data.get("channel_id")
+
+        if database_channel is None:
+            await message.reply_text(
+                f"<i>Please contact {user.mention}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>"
+            )
+            return
+
+        if force_channel:
+            invite_link = await _.create_chat_invite_link(force_channel)
+            try:
+                user = await _.get_chat_member(force_channel, message.from_user.id)
+                if user.status == "kicked":
+                    await message.reply_text("Sorry Sir, You are Banned from using me.")
+                    return
+            except Exception:
+                await message.reply_photo(
+                    "https://telegra.ph/file/b7a933f423c153f866699.jpg",
+                    caption=script.FORCE_MSG.format(message.from_user.mention),
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("🤖 Join Update Channel", url=invite_link.invite_link)],
+                        [InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{id}")]
+                    ])
+                )
+                return
+
+        for id in range(int(start_id), int(last_id)+1):
+            file = await _.get_messages(database_channel, int(id))
+            file_caption = file.caption if file.caption else ""
+
+            file_id = None  
+            if file.media == MessageMediaType.VIDEO:
+                file_id = file.video.file_id
+            elif file.media == MessageMediaType.DOCUMENT:
+                file_id = file.document.file_id
+
+            if not file_id:
+                await message.reply_text("<i>Unsupported media type. Please contact the provider for help.</i>")
+                return
+
+            buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
+            await _.send_cached_media(
+              chat_id=message.from_user.id,
+              file_id=file_id,
+              caption=file_caption,
+              reply_markup=InlineKeyboardMarkup(buttons)
+            )
+            asyncio.sleep(0.8)
+            return
+    except Exception as e:
+        await message.reply_text(f"Error: `{str(e)}`")
+        return
+
+
+
+
+
+
+
