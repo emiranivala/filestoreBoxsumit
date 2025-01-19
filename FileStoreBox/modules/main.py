@@ -37,6 +37,8 @@ async def watcher(_, message):
                     [InlineKeyboardButton("🏓 Shortener Link", url=short_post_link)],
                 ]
             else:
+                encrypt_post_id = await main_func.base64_encrypt(f"{user_id}_{message.id}")
+                bot_post_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_post_id}"
                 buttons = [[InlineKeyboardButton("🔗 Bot Link", url=bot_post_link)]]
 
             post = await _.send_cached_media(
@@ -55,6 +57,7 @@ async def watcher(_, message):
                     [InlineKeyboardButton("🏓 Shortener Link", url=short_link)],
                 ]
             else:
+                encrypt_id = await main_func.base64_encrypt(f"{user_id}_{post.id}")
                 bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_id}"
                 buttons = [[InlineKeyboardButton("🔗 Bot Link", url=bot_link)]]
 
