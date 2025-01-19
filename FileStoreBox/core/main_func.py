@@ -60,11 +60,11 @@ async def fetch_files(_, message):
             return
 
         data = await toolsdb.get_data(user_id)
-        force_channel = data.get("force_channel") if data else None
-        database_channel = data.get("channel_id") if data else None
+        force_channel = data.get("force_channel") 
+        database_channel = data.get("channel_id") 
 
         if database_channel is None:
-            await message.reply_text("<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>")
+            await message.reply_text(f"<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>")
             return
 
         if force_channel:
