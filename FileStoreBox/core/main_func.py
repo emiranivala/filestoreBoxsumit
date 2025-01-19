@@ -2,6 +2,7 @@ import base64
 import asyncio
 import aiohttp
 from config import HOST_URL
+from FileStoreBox.core import script
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import UserNotParticipant
