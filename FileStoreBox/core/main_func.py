@@ -18,21 +18,21 @@ async def base64_decrypt(encoded_string: str) -> str:
     return decoded_bytes.decode('utf-8')
 
 
-async def must_join(_, message, user_id):
+async def must_join(_, message, user_id, sender_id, name):
     data = await toolsdb.get_data(user_id)
     if data and data.get("force_channel"):
         force_channel = data.get("force_channel")
         if force_channel:
             invite_link = await _.create_chat_invite_link(force_channel)
             try:
-                user = await _.get_chat_member(force_channel, message.from_user.id)
+                user = await _.get_chat_member(force_channel, sender_id)
                 if user.status == "kicked":
                     await message.reply_text("Sorry Sir, You are Banned from using me.")
                     return
             except UserNotParticipant:
                 await message.reply_photo(
                     "https://telegra.ph/file/b7a933f423c153f866699.jpg", 
-                    caption=script.FORCE_MSG.format(message.from_user.mention),
+                    caption=script.FORCE_MSG.format(name),
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("🤖 Join Update Channel", url=invite_link.invite_link)]
                     ])
@@ -44,15 +44,20 @@ async def must_join(_, message, user_id):
 
 
 
-async def fetch_files(_, message, encrypt_mode=True, task=None):
+async def fetch_files(_, message, encrypt_mode=True, query=None):
     try:
         if encrypt_mode:
+            name = message.from_user.mention
+            sender_id = message.from_user.id
             encode_data = message.text.split("_")
             decrypt_data = await base64_decrypt(encode_data[1])
             parts = decrypt_data.split("_")
             user_id = parts[0]
             id = parts[1]
         else:
+            name = query.from_user.mention
+            sender_id = query.from_user.id
+            task = query.data.split("#")[1]
             parts = task.split("_")
             user_id = parts[0]
             id = parts[1]
@@ -63,7 +68,7 @@ async def fetch_files(_, message, encrypt_mode=True, task=None):
         except:
             pass
 
-        joined = await must_join(_, message, user_id)
+        joined = await must_join(_, message, user_id, sender_id, name)
         if joined == 1:
             return
 
@@ -80,14 +85,14 @@ async def fetch_files(_, message, encrypt_mode=True, task=None):
         if force_channel:
             invite_link = await _.create_chat_invite_link(force_channel)
             try:
-                user = await _.get_chat_member(force_channel, message.from_user.id)
+                user = await _.get_chat_member(force_channel, sender_id)
                 if user.status == "kicked":
                     await message.reply_text("Sorry Sir, You are Banned from using me.")
                     return
             except Exception:
                 await message.reply_photo(
                     "https://telegra.ph/file/b7a933f423c153f866699.jpg",
-                    caption=script.FORCE_MSG.format(message.from_user.mention),
+                    caption=script.FORCE_MSG.format(name),
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("🤖 Join Update Channel", url=invite_link.invite_link)],
                         [InlineKeyboardButton("🔄 Try Again", callback_data=f"checksub#{user_id}_{id}")]
@@ -110,7 +115,7 @@ async def fetch_files(_, message, encrypt_mode=True, task=None):
 
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
         await _.send_cached_media(
-            chat_id=message.from_user.id,
+            chat_id=sender_id,
             file_id=file_id,
             caption=file_caption,
             reply_markup=InlineKeyboardMarkup(buttons)
@@ -122,9 +127,11 @@ async def fetch_files(_, message, encrypt_mode=True, task=None):
 
 
 
-async def batch_files(_, message, encrypt_mode=True):
+async def batch_files(_, message, encrypt_mode=True, query=None):
     try:
         if encrypt_mode:
+            name = message.from_user.mention
+            sender_id = message.from_user.id
             encode_data = message.text.split("_")
             decrypt_data = await base64_decrypt(encode_data[1])
             parts = decrypt_data.split("_")
@@ -132,7 +139,10 @@ async def batch_files(_, message, encrypt_mode=True):
             start_id = parts[1]
             last_id = parts[2]
         else:
-            parts = message.text.split("_")
+            name = query.from_user.mention
+            sender_id = query.from_user.id
+            task = query.data.split("#")[1]
+            parts = task.split("_")
             user_id = parts[0]
             start_id = parts[1]
             last_id = parts[2]
@@ -143,7 +153,7 @@ async def batch_files(_, message, encrypt_mode=True):
         except Exception:
             user = None
 
-        joined = await must_join(_, message, user_id)
+        joined = await must_join(_, message, user_id, sender_id, name)
         if joined == 1:
             return
 
@@ -161,14 +171,14 @@ async def batch_files(_, message, encrypt_mode=True):
         if force_channel:
             invite_link = await _.create_chat_invite_link(force_channel)
             try:
-                user_status = await _.get_chat_member(force_channel, message.from_user.id)
+                user_status = await _.get_chat_member(force_channel, sender_id)
                 if user_status.status == "kicked":
                     await message.reply_text("Sorry Sir, You are Banned from using me.")
                     return
             except Exception:
                 await message.reply_photo(
                     "https://telegra.ph/file/b7a933f423c153f866699.jpg",
-                    caption=script.FORCE_MSG.format(message.from_user.mention),
+                    caption=script.FORCE_MSG.format(name),
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("🤖 Join Update Channel", url=invite_link.invite_link)],
                         [InlineKeyboardButton("🔄 Try Again", callback_data=f"batchSub#{user_id}_{start_id}_{last_id}")]
@@ -193,7 +203,7 @@ async def batch_files(_, message, encrypt_mode=True):
 
                 buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
                 await _.send_cached_media(
-                    chat_id=message.from_user.id,
+                    chat_id=sender_id,
                     file_id=file_id,
                     caption=file_caption,
                     reply_markup=InlineKeyboardMarkup(buttons)
