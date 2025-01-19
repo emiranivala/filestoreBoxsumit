@@ -8,6 +8,15 @@ from pyrogram.errors import UserNotParticipant
 from FileStoreBox.core.mongo import toolsdb
 
 
+async def base64_encrypt(input_string: str) -> str:
+    encoded_bytes = base64.b64encode(input_string.encode('utf-8'))
+    return encoded_bytes.decode('utf-8')
+
+async def base64_decrypt(encoded_string: str) -> str:
+    decoded_bytes = base64.b64decode(encoded_string.encode('utf-8'))
+    return decoded_bytes.decode('utf-8')
+
+
 async def must_join(_, message, user_id):
     data = await toolsdb.get_data(user_id)
     if data and data.get("force_channel"):
@@ -36,7 +45,8 @@ async def must_join(_, message, user_id):
 
 async def fetch_files(_, message):
     try:
-        parts = message.text.split("_")
+        encode_data = message.text.split("_")
+        parts = await base64_decrypt(encode_data)
         user_id = parts[1]
         id = parts[2]
 
@@ -67,7 +77,7 @@ async def fetch_files(_, message):
                 return
 
         file = await _.get_messages(database_channel, int(id))
-        caption = file.caption if file.caption else ""
+        file_caption = file.caption if file.caption else ""
         
         if file.media == "video":
             file_id = file.video.file_id
@@ -76,7 +86,6 @@ async def fetch_files(_, message):
             file_id = file.document.file_id
             title = file.document.file_name
 
-        file_caption = f"📑 {title}\n\n{caption}"
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
 
         await _.send_cached_media(
@@ -92,13 +101,6 @@ async def fetch_files(_, message):
 
 
 
-async def base64_encrypt(input_string: str) -> str:
-    encoded_bytes = base64.b64encode(input_string.encode('utf-8'))
-    return encoded_bytes.decode('utf-8')
-
-async def base64_decrypt(encoded_string: str) -> str:
-    decoded_bytes = base64.b64decode(encoded_string.encode('utf-8'))
-    return decoded_bytes.decode('utf-8')
 
 async def short_link(user_id, link):
     data = await toolsdb.get_data(user_id)
