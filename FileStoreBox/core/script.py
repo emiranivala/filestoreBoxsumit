@@ -1,5 +1,10 @@
 START_TEXT = "Hi {}! \n\nI’m File Store Box, the perfect place to store your files and videos. With unlimited storage, I’m not just a bot—I’m your next-level storage partner!"
-FORCE_SUB = ""
+FORCE_MSG = """
+**ʜᴇʏ** {}
+
+**ᴀᴄᴄᴏʀᴅɪɴɢ ᴛᴏ ᴍʏ ᴅᴀᴛᴀʙᴀsᴇ ʏᴏᴜ'ᴠᴇ ɴᴏᴛ ᴊᴏɪɴᴇᴅ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ ʏᴇᴛ, ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴜsᴇ ᴍᴇ ᴛʜᴇɴ ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ ᴀɴᴅ sᴛᴀʀᴛ ᴍᴇ ᴀɢᴀɪɴ !**
+"""
+
 
 TOOLS_TEXT = """
 **I am a File Store Box Bot with an unlimited database where users can store their media files securely.**
