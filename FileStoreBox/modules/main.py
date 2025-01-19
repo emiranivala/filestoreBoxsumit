@@ -51,7 +51,7 @@ async def watcher(_, message):
         else:
             await message.reply_text("**Channel ID not found or not configured!**\n\n<i>First, add your database channel then will you be able to store anything in the bot.</i>")
     except Exception as e:
-        await message.reply_text(f"**Error**: {e}")
+        await msg.edit_text(f"**Error**: {e}")
         
 
 
