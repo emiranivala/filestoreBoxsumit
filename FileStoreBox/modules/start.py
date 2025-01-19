@@ -141,11 +141,11 @@ async def handle_callback(_, query):
             print("unknown view query")
 		
     elif query.data.startswith("checksub"):
-	task = query.data.split("#")[1]
+        task = query.data.split("#")[1]
         await more_func.fetch_files(_, query.message, encrypt_mode=False)
 	    
     elif query.data.startswith("batchSub"):
-	task = query.data.split("#")[1]
+        task = query.data.split("#")[1]
         await more_func.batch_files(_, query.message, encrypt_mode=False)
 	
     elif query.data == "maintainer_":
@@ -160,7 +160,6 @@ async def handle_callback(_, query):
                 await query.message.reply_to_message.delete()
         except Exception as e:
             print(f"Error deleting messages: {e}")
-
 
 
 		
