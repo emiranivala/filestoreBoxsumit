@@ -16,7 +16,7 @@ button = InlineKeyboardMarkup([[
 @app.on_message(filters.command("start") & filters.private)
 async def start(_, message):        
     if message.text.startswith("/start FileBox"):
-        pass
+        await fetch_files(_, message)
         return 
         
     elif message.text.startswith("/start BatchBox"):
