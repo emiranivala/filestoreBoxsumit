@@ -1,3 +1,5 @@
+import base64
+import asyncio
 from config import HOST_URL
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -86,6 +88,15 @@ async def fetch_files(_, message):
     except Exception as e:
         await message.reply_text(f"Error: `{str(e)}`")
         return
+
+
+async def base64_encrypt(input_string: str) -> str:
+    encoded_bytes = base64.b64encode(input_string.encode('utf-8'))
+    return encoded_bytes.decode('utf-8')
+
+async def base64_decrypt(encoded_string: str) -> str:
+    decoded_bytes = base64.b64decode(encoded_string.encode('utf-8'))
+    return decoded_bytes.decode('utf-8')
 
 
 
