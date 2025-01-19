@@ -72,7 +72,7 @@ async def batch_(_, message):
             last_id = last.text
 
             encrypt_id = await main_func.base64_encrypt(f"{user_id}_{start_id}_{last_id}")
-            bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_id}"
+            bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=BatchBox_{encrypt_id}"
             
             if data.get("api_url") and data.get("api_key"):
                 short_link = await main_func.short_link(user_id, bot_link)
