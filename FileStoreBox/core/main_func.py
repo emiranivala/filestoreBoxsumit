@@ -51,8 +51,7 @@ async def fetch_files(_, message):
         parts = decrypt_data.split("_")
         user_id = parts[0]
         id = parts[1]
-        print(f"id - {id}")
-
+    
         try:
             user = await app.get_users(user_id)
         except:
@@ -91,7 +90,6 @@ async def fetch_files(_, message):
                 return
 
         file = await _.get_messages(database_channel, int(id))
-        print(file)
         file_caption = file.caption if file.caption else ""
 
         file_id = None  
