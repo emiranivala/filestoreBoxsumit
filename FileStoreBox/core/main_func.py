@@ -64,6 +64,8 @@ async def fetch_files(_, message):
                 return
 
         file = await _.get_messages(database_channel, int(id))
+        caption = file.caption if file.caption else ""
+        
         if file.media == "video":
             file_id = file.video.file_id
             title = file.video.file_name
@@ -71,7 +73,7 @@ async def fetch_files(_, message):
             file_id = file.document.file_id
             title = file.document.file_name
 
-        file_caption = f"📑 {title}"
+        file_caption = f"📑 {title}\n\n{caption}"
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
 
         await _.send_cached_media(
