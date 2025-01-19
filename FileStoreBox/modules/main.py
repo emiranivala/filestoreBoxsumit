@@ -61,11 +61,11 @@ async def watcher(_, message):
                 bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_id}"
                 buttons = [[InlineKeyboardButton("🔗 Bot Link", url=bot_link)]]
 
-            await message.reply_text(script.POST_TEXT, reply_markup=InlineKeyboardMarkup(buttons))
+            await msg.edit_text(script.POST_TEXT, reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text("**Channel ID not found or not configured!**\n\n<i>First, add your database channel then will you be able to store anything in the bot.</i>")
     except Exception as e:
-        await msg.edit_text(f"**Error**: {e}")
+        await message.reply_text(f"**Error**: {e}")
         
 
 
