@@ -88,12 +88,13 @@ async def fetch_files(_, message):
         file = await _.get_messages(database_channel, int(id))
         file_caption = file.caption if file.caption else ""
         
-        if file.media == "video":
+        if file.media == MessageMediaType.VIDEO:
             file_id = file.video.file_id
-            title = file.video.file_name
-        else:
+        elif file.media == MessageMediaType.DOCUMENT:
             file_id = file.document.file_id
-            title = file.document.file_name
+        else:
+            print("other media doesn't support")
+            pass
 
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
 
