@@ -26,26 +26,11 @@ async def watcher(_, message):
             else:
                 await msg.edit_text("This media type is not supported!")
                 return
-            
-            
-            if data.get("api_url") and data.get("api_key"):
-                encrypt_post_id = await main_func.base64_encrypt(f"{user_id}_{message.id}")
-                bot_post_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_post_id}"
-                short_post_link = await main_func.short_link(user_id, bot_post_link)
-                buttons = [
-                    [InlineKeyboardButton("🔗 Bot Link", url=bot_post_link)],
-                    [InlineKeyboardButton("🏓 Shortener Link", url=short_post_link)],
-                ]
-            else:
-                encrypt_post_id = await main_func.base64_encrypt(f"{user_id}_{message.id}")
-                bot_post_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_post_id}"
-                buttons = [[InlineKeyboardButton("🔗 Bot Link", url=bot_post_link)]]
-
+                
             post = await _.send_cached_media(
                 chat_id=channel_id,
                 file_id=file_id,
-                caption=file_caption,
-                reply_markup=InlineKeyboardMarkup(buttons)
+                caption="waiting...."
             )
             
             if data.get("api_url") and data.get("api_key"):
@@ -60,7 +45,8 @@ async def watcher(_, message):
                 encrypt_id = await main_func.base64_encrypt(f"{user_id}_{post.id}")
                 bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_id}"
                 buttons = [[InlineKeyboardButton("🔗 Bot Link", url=bot_link)]]
-
+                
+            await post.edit_text(file_caption, reply_markup=InlineKeyboardMarkup(buttons))
             await msg.edit_text(script.POST_TEXT, reply_markup=InlineKeyboardMarkup(buttons))
         else:
             await message.reply_text("**Channel ID not found or not configured!**\n\n<i>First, add your database channel then will you be able to store anything in the bot.</i>")
