@@ -1,9 +1,11 @@
-from FileStoreBox import app
+from FileStoreBox import app, BOT_USERNAME
 from pyrogram import filters
 from FileStoreBox.core import script
 from FileStoreBox.core import main_func
 from FileStoreBox.core.mongo import toolsdb
 from pyrogram.enums import MessageMediaType
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 
 
 @app.on_message((filters.document | filters.video | filters.forwarded) & filters.private)
@@ -25,7 +27,7 @@ async def watcher(_, message):
                 await msg.edit_text("This media type is not supported!")
                 return
             
-            bot_post_link = None
+            
             if data.get("api_url") and data.get("api_key"):
                 encrypt_post_id = await main_func.base64_encrypt(f"{user_id}_{message.id}")
                 bot_post_link = f"https://telegram.dog/{BOT_USERNAME}?start=FileBox_{encrypt_post_id}"
