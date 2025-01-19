@@ -21,8 +21,7 @@ async def start(_, message):
         return 
         
     elif message.text.startswith("/start BatchBox"):
-        reffer_id = message.text.split("_")[1]
-        pass
+        await main_func.batch_files(_, message)
         return 
     else:
         await message.reply_photo(
