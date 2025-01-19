@@ -1,7 +1,6 @@
 import asyncio
 from pyrogram import Client
-from pyromod import listen
-#from pyrogram.enums import ParseMode
+from pyrogram.enums import ParseMode
 from config import API_ID, API_HASH, BOT_TOKEN
 
 
@@ -28,7 +27,7 @@ async def bot_info():
     getme = await app.get_me()
     BOT_ID = getme.id
     BOT_USERNAME = getme.username
-  #  app.set_parse_mode(ParseMode.DEFAULT)
+    app.set_parse_mode(ParseMode.DEFAULT)
     if getme.last_name:
         BOT_NAME = getme.first_name + " " + getme.last_name
     else:
