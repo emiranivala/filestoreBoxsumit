@@ -45,9 +45,9 @@ async def must_join(_, message, user_id):
 
 async def fetch_files(_, message):
     try:
-        fileBox_data = message.text.split("_")
-        encode_data = fileBox_data.split("_")
-        parts = await base64_decrypt(encode_data)
+        encode_data = message.text.split("_")
+        decrypt_data = await base64_decrypt(encode_data[1])
+        parts = decrypt_data.split("_")
         user_id = parts[0]
         id = parts[1]
 
