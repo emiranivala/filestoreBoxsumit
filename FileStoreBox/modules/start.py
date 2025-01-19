@@ -1,6 +1,7 @@
 from pyrogram import filters
 from FileStoreBox import app
 from FileStoreBox.core import script
+from FileStoreBox.core import main_func
 from FileStoreBox.core import tools_func
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -16,7 +17,7 @@ button = InlineKeyboardMarkup([[
 @app.on_message(filters.command("start") & filters.private)
 async def start(_, message):        
     if message.text.startswith("/start FileBox"):
-        await fetch_files(_, message)
+        await main_func.fetch_files(_, message)
         return 
         
     elif message.text.startswith("/start BatchBox"):
