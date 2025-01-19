@@ -44,7 +44,7 @@ async def must_join(_, message, user_id):
 
 
 
-async def fetch_files(_, message, encrypt_mode=True):
+async def fetch_files(_, message, encrypt_mode=True, task=None):
     try:
         if encrypt_mode:
             encode_data = message.text.split("_")
@@ -53,7 +53,7 @@ async def fetch_files(_, message, encrypt_mode=True):
             user_id = parts[0]
             id = parts[1]
         else:
-            parts = message.text.split("_")
+            parts = task.split("_")
             user_id = parts[0]
             id = parts[1]
             
