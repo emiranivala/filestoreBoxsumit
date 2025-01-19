@@ -50,6 +50,10 @@ async def fetch_files(_, message):
         user_id = parts[1]
         id = parts[2]
 
+        try:
+            user = await app.get_users(user_id)
+        except:
+            pass
         joined = await must_join(_, message, user_id)
         if joined == 1:
             return
@@ -57,6 +61,10 @@ async def fetch_files(_, message):
         data = await toolsdb.get_data(user_id)
         force_channel = data.get("force_channel") if data else None
         database_channel = data.get("channel_id") if data else None
+
+        if database_channel is None:
+            await message.reply_text("<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>")
+            return
 
         if force_channel:
             invite_link = await _.create_chat_invite_link(force_channel)
