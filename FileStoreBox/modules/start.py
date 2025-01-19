@@ -142,7 +142,7 @@ async def handle_callback(_, query):
 		
     elif query.data.startswith("checksub"):
         task = query.data.split("#")[1]
-        await main_func.fetch_files(_, query.message, encrypt_mode=False, task)
+        await main_func.fetch_files(_, query.message, encrypt_mode=False, task=task)
 	    
     elif query.data.startswith("batchSub"):
         task = query.data.split("#")[1]
