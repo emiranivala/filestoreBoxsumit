@@ -2,7 +2,7 @@ from FileStoreBox import app
 from pyrogram import filters
 from FileStoreBox.core import script
 from FileStoreBox.core import main_func
-fron FileStoreBox.core.mongo import toolsdb
+from FileStoreBox.core.mongo import toolsdb
 from pyrogram.enums import MessageMediaType
 
 
