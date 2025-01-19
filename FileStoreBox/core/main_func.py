@@ -59,7 +59,7 @@ async def fetch_files(_, message):
         if joined == 1:
             return
 
-        data = await toolsdb.get_data(user_id)
+        data = await toolsdb.get_data(int(user_id))
         force_channel = data.get("force_channel") 
         database_channel = data.get("channel_id") 
 
