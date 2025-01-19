@@ -1,6 +1,4 @@
-#pyrofork
-git+https://github.com/Sumit0045/pyrogram
-pyromod
+pyrofork
 tgcrypto
 aiohttp
 motor
