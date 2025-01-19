@@ -1,5 +1,6 @@
 import base64
 import asyncio
+import aiohttp
 from config import HOST_URL
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -90,6 +91,7 @@ async def fetch_files(_, message):
         return
 
 
+
 async def base64_encrypt(input_string: str) -> str:
     encoded_bytes = base64.b64encode(input_string.encode('utf-8'))
     return encoded_bytes.decode('utf-8')
@@ -98,5 +100,34 @@ async def base64_decrypt(encoded_string: str) -> str:
     decoded_bytes = base64.b64decode(encoded_string.encode('utf-8'))
     return decoded_bytes.decode('utf-8')
 
+async def short_link(user_id, link):
+    data = await toolsdb.get_data(user_id)
+    if data and isinstance(data.get("api_url"), str) and isinstance(data.get("api_key"), str):
+        api_url = data.get("api_url")
+        api_key = data.get("api_key")
+
+        if link.startswith("http://"):
+            link = link.replace("http://", "https://")
+
+        params = {'api': api_key, 'url': link}
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(api_url, params=params, ssl=False) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        if data.get("status") == "success":
+                            return data.get('shortenedUrl')
+                        else:
+                            error_message = data.get('message', 'Unknown error occurred')
+                            print(f"Error: {error_message}")
+                    else:
+                        print(f"HTTP Error: {response.status}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+    else:
+        print("API URL or API Key is missing or invalid.")
+
+    
 
 
