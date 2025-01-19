@@ -44,13 +44,19 @@ async def must_join(_, message, user_id):
 
 
 
-async def fetch_files(_, message):
+async def fetch_files(_, message, encrypt_mode=True):
     try:
-        encode_data = message.text.split("_")
-        decrypt_data = await base64_decrypt(encode_data[1])
-        parts = decrypt_data.split("_")
-        user_id = parts[0]
-        id = parts[1]
+        if encrypt_mode:
+            encode_data = message.text.split("_")
+            decrypt_data = await base64_decrypt(encode_data[1])
+            parts = decrypt_data.split("_")
+            user_id = parts[0]
+            id = parts[1]
+        else:
+            parts = message.text.split("_")
+            user_id = parts[0]
+            id = parts[1]
+            
     
         try:
             user = await app.get_users(user_id)
@@ -116,14 +122,21 @@ async def fetch_files(_, message):
 
 
 
-async def batch_files(_, message):
+async def batch_files(_, message, encrypt_mode=True):
     try:
-        encode_data = message.text.split("_")
-        decrypt_data = await base64_decrypt(encode_data[1])
-        parts = decrypt_data.split("_")
-        user_id = parts[0]
-        start_id = parts[1]
-        last_id = parts[2]
+        if encrypt_mode:
+            encode_data = message.text.split("_")
+            decrypt_data = await base64_decrypt(encode_data[1])
+            parts = decrypt_data.split("_")
+            user_id = parts[0]
+            start_id = parts[1]
+            last_id = parts[2]
+        else:
+            parts = message.text.split("_")
+            user_id = parts[0]
+            start_id = parts[1]
+            last_id = parts[2]
+            
 
         try:
             user = await app.get_users(user_id)
