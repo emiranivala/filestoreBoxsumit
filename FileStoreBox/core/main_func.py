@@ -51,6 +51,7 @@ async def fetch_files(_, message):
         parts = decrypt_data.split("_")
         user_id = parts[0]
         id = parts[1]
+        print(f"id - {id}")
 
         try:
             user = await app.get_users(user_id)
@@ -67,7 +68,7 @@ async def fetch_files(_, message):
 
         if database_channel is None:
             await message.reply_text(
-                f"<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>"
+                f"<i>Please contact {user.mention}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>"
             )
             return
 
@@ -100,7 +101,7 @@ async def fetch_files(_, message):
             file_id = file.document.file_id
 
         if not file_id:
-            await message.reply_text("Unsupported media type. Please contact the provider for help.")
+            await message.reply_text("<i>Unsupported media type. Please contact the provider for help.</i>")
             return
 
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
