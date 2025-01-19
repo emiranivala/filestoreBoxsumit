@@ -1,4 +1,4 @@
 pyrofork
 tgcrypto
-requests
+aiohttp
 motor
