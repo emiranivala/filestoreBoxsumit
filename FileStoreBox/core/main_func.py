@@ -56,16 +56,19 @@ async def fetch_files(_, message):
             user = await app.get_users(user_id)
         except:
             pass
+
         joined = await must_join(_, message, user_id)
         if joined == 1:
             return
 
         data = await toolsdb.get_data(int(user_id))
-        force_channel = data.get("force_channel") 
-        database_channel = data.get("channel_id") 
+        force_channel = data.get("force_channel")
+        database_channel = data.get("channel_id")
 
         if database_channel is None:
-            await message.reply_text(f"<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>")
+            await message.reply_text(
+                f"<i>Please contact {user.first_name}, the file provider. Maybe he has deleted or changed his database channel, which is why you are not getting the file.</i>"
+            )
             return
 
         if force_channel:
@@ -87,18 +90,20 @@ async def fetch_files(_, message):
                 return
 
         file = await _.get_messages(database_channel, int(id))
+        print(file)
         file_caption = file.caption if file.caption else ""
-        
+
+        file_id = None  
         if file.media == MessageMediaType.VIDEO:
             file_id = file.video.file_id
         elif file.media == MessageMediaType.DOCUMENT:
             file_id = file.document.file_id
-        else:
-            print("other media doesn't support")
-            pass
+
+        if not file_id:
+            await message.reply_text("Unsupported media type. Please contact the provider for help.")
+            return
 
         buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
-
         await _.send_cached_media(
             chat_id=message.from_user.id,
             file_id=file_id,
@@ -109,38 +114,5 @@ async def fetch_files(_, message):
     except Exception as e:
         await message.reply_text(f"Error: `{str(e)}`")
         return
-
-
-
-
-async def short_link(user_id, link):
-    data = await toolsdb.get_data(user_id)
-    if data and isinstance(data.get("api_url"), str) and isinstance(data.get("api_key"), str):
-        api_url = data.get("api_url")
-        api_key = data.get("api_key")
-
-        if link.startswith("http://"):
-            link = link.replace("http://", "https://")
-
-        params = {'api': api_key, 'url': link}
-
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(api_url, params=params, ssl=False) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        if data.get("status") == "success":
-                            return data.get('shortenedUrl')
-                        else:
-                            error_message = data.get('message', 'Unknown error occurred')
-                            print(f"Error: {error_message}")
-                    else:
-                        print(f"HTTP Error: {response.status}")
-        except Exception as e:
-            print(f"An unexpected error occurred: {e}")
-    else:
-        print("API URL or API Key is missing or invalid.")
-
-    
 
 
