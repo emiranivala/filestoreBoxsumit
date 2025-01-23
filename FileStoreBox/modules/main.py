@@ -66,10 +66,12 @@ async def batch_(_, message):
         
         try:
             start = await app.ask(chat_id, text="**Send me the link from where you want to start the batch.**", timeout=60)
-            start_id = start.text
+            start_url = start.text
+            start_id = start_url.split("/")[-1]
 
             last = await app.ask(chat_id, text="**Send me the link from where you want to end the batch.**", timeout=60)
-            last_id = last.text
+            last_url = last.text
+            last_id = last_url.split("/")[-1]
 
             encrypt_id = await main_func.base64_encrypt(f"{user_id}_{start_id}_{last_id}")
             bot_link = f"https://telegram.dog/{BOT_USERNAME}?start=BatchBox_{encrypt_id}"
