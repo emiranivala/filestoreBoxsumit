@@ -9,11 +9,16 @@ from pyrogram.errors import UserNotParticipant
 from FileStoreBox.core.mongo import toolsdb
 
 
+
+
 async def base64_encrypt(input_string: str) -> str:
     encoded_bytes = base64.b64encode(input_string.encode('utf-8'))
-    return encoded_bytes.decode('utf-8')
+    return encoded_bytes.decode('utf-8').rstrip('=')
 
 async def base64_decrypt(encoded_string: str) -> str:
+    padding_needed = len(encoded_string) % 4
+    if padding_needed:
+        encoded_string += '=' * (4 - padding_needed)
     decoded_bytes = base64.b64decode(encoded_string.encode('utf-8'))
     return decoded_bytes.decode('utf-8')
 
