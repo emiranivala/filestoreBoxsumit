@@ -8,9 +8,9 @@
 
 ---
 
-<h2 align="center">✨ Features ✨</h2>
+<h2>✨ Features ✨</h2>
 
-<p align="center">
+<p>
   • Stats <br>
   • Broadcast <br>
   • Unlimited Database <br>
