@@ -1,0 +1,25 @@
+{
+  "name": "File Store Box",
+  "description": "A bot to manage files and media to save in database",
+  "repository": "https://github.com/Sumit0045/FileStoreBox",
+  "keywords": ["telegram", "bot", "filestorebox"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "The bot token from BotFather.",
+      "required": true
+    },
+    "MONGO_DB": {
+      "description": "MongoDB connection string.",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "The Telegram user ID of the bot's owner for admin actions.",
+      "required": true
+    } 
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ]
+}
