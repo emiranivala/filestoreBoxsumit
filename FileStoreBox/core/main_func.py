@@ -117,7 +117,6 @@ async def fetch_files(_, message, encrypt_mode=True, query=None):
             await message.reply_text("<i>Unsupported media type. Please contact the provider for help.</i>")
             return
 
-        #buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
         await _.send_cached_media(
             chat_id=sender_id,
             file_id=file_id,
@@ -204,7 +203,6 @@ async def batch_files(_, message, encrypt_mode=True, query=None):
                     await message.reply_text("<i>Unsupported media type. Please contact the provider for help.</i>")
                     continue
 
-                #buttons = [[InlineKeyboardButton('Downloads', url=f"{HOST_URL}/{id}")]]
                 await _.send_cached_media(
                     chat_id=sender_id,
                     file_id=file_id,
