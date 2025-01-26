@@ -24,7 +24,7 @@
 <h3 align="center">ᴅᴇᴘʟᴏʏ ᴏɴ ʜᴇʀᴏᴋᴜ</h3>
 <p align="center">
   <a href="https://dashboard.heroku.com/new?template=https://github.com/Sumit0045/FileStoreBox">
-    <img src="https://img.shields.io/badge/Heroku-black?style=for-the-badge&logo=heroku" width="70" height="38.45"/>
+    <img src="https://img.shields.io/badge/Heroku-black?style=for-the-badge&logo=heroku" width="200" height="38"/>
   </a>
 </p>
 
