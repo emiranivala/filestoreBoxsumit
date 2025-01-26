@@ -2,6 +2,7 @@ import base64
 import asyncio
 import aiohttp
 from config import HOST_URL
+from typing import Dict, Optional
 from FileStoreBox.core import script
 from pyrogram.enums import MessageMediaType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -218,6 +219,26 @@ async def batch_files(_, message, encrypt_mode=True, query=None):
     except Exception as e:
         await message.reply_text(f"Error: `{str(e)}`")
         return
+
+
+
+class TokenParser:
+    def __init__(self, config_file: Optional[str] = None):
+        self.tokens = {}
+        self.config_file = config_file
+
+    def parse_from_env(self) -> Dict[int, str]:
+        self.tokens = dict(
+            (c + 1, t)
+            for c, (_, t) in enumerate(
+                filter(
+                    lambda n: n[0].startswith("MULTI_TOKEN"), sorted(environ.items())
+                )
+            )
+        )
+        return self.tokens
+
+
 
 
 
