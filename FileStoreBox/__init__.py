@@ -10,7 +10,7 @@ loop = asyncio.get_event_loop()
 
 
 app = Client(
-    ":RestrictBot:",
+    ":FileStoreBox:",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
