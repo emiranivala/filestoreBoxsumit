@@ -1,6 +1,6 @@
-<h1 align="center">File Store Box Bot</h1>
+<h1 align="center">ғɪʟᴇ sᴛᴏʀᴇ ʙᴏx ʙᴏᴛ</h1>
 
-<p align="center">I’m File Store Box, the perfect place to store your files and videos. With unlimited storage, I’m not just a bot—I’m your next-level storage partner!</p>
+<p align="center">ɪ’ᴍ ғɪʟᴇ sᴛᴏʀᴇ ʙᴏx, ᴛʜᴇ ᴘᴇʀғᴇᴄᴛ ᴘʟᴀᴄᴇ ᴛᴏ sᴛᴏʀᴇ ʏᴏᴜʀ ғɪʟᴇs ᴀɴᴅ ᴠɪᴅᴇᴏs. ᴡɪᴛʜ ᴜɴʟɪᴍɪᴛᴇᴅ sᴛᴏʀᴀɢᴇ, ɪ’ᴍ ɴᴏᴛ ᴊᴜsᴛ ᴀ ʙᴏᴛ—ɪ’ᴍ ʏᴏᴜʀ ɴᴇxᴛ-ʟᴇᴠᴇʟ sᴛᴏʀᴀɢᴇ ᴘᴀʀᴛɴᴇʀ!</p>
 
 <p align="center">
   <img src="https://envs.sh/Hpz.jpg" alt="File Store Box Bot" />
@@ -8,7 +8,7 @@
 
 ---
 
-<h2>✨ Features ✨</h2>
+<h2>✨ ғᴇᴀᴛᴜʀᴇs ✨</h2>
 
 <p>
   • Stats <br>
@@ -56,6 +56,6 @@
 
 ---
 
-<h2 align="center">🤝 Collaborate 🤝</h2>
+<h2 align="center">🤝 ᴄᴏʟʟᴀʙᴏʀᴀᴛᴇ 🤝</h2>
 
-<p align="center">You can fork this repository, raise issues, or contribute via pull requests to make this bot even better!</p>
+<p align="center">ʏᴏᴜ ᴄᴀɴ ғᴏʀᴋ ᴛʜɪs ʀᴇᴘᴏsɪᴛᴏʀʏ, ʀᴀɪsᴇ ɪssᴜᴇs, ᴏʀ ᴄᴏɴᴛʀɪʙᴜᴛᴇ ᴠɪᴀ ᴘᴜʟʟ ʀᴇǫᴜᴇsᴛs ᴛᴏ ᴍᴀᴋᴇ ᴛʜɪs ʙᴏᴛ ᴇᴠᴇɴ ʙᴇᴛᴛᴇʀ!</p>
