@@ -218,3 +218,38 @@ async def batch_files(_, message, encrypt_mode=True, query=None):
 
 
 
+
+
+async def short_func(user_id, link):
+    data = await toolsdb.get_data(user_id)
+    if data and data.get("api_url") and data.get("api_key"):
+        api_key = data["api_key"]
+        api_url = data["api_url"]
+    else:
+        raise ValueError("API URL and API Key not found")
+
+    if link.startswith("http://"):
+        link = link.replace("http://", "https://")
+
+    params = {'api': api_key, 'url': link}
+
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(api_url, params=params, ssl=False) as response:
+                response.raise_for_status()  # Ensure HTTP error handling
+                data = await response.json()
+
+                if data.get("status") == "success":
+                    return data.get('shortenedUrl', 'Unknown URL returned')
+                else:
+                    error_message = data.get('message', 'Unknown error occurred')
+                    raise ValueError(f"Error: {error_message}")
+
+    except aiohttp.ClientError as e:
+        raise ValueError(f"HTTP request error: {e}")
+
+    except Exception as e:
+        raise ValueError(f"An error occurred: {e}")
+
+
+
