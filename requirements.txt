@@ -1,4 +1,4 @@
-kurigram
+kurigram==v2.1.38
 pyromod
 tgcrypto
 aiohttp
