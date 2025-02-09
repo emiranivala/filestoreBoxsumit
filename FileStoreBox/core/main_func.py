@@ -220,7 +220,7 @@ async def batch_files(_, message, encrypt_mode=True, query=None):
 
 
 
-async def short_func(user_id, link):
+async def short_link(user_id, link):
     data = await toolsdb.get_data(user_id)
     if data and data.get("api_url") and data.get("api_key"):
         api_key = data["api_key"]
