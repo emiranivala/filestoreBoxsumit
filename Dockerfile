@@ -1,22 +1,19 @@
 FROM python:3.10.4-slim-buster
 
-# Update and install required OS packages (without full upgrade)
+# Update package lists and install required OS packages
 RUN apt update && \
-    apt-get install -y git curl python3-pip ffmpeg wget bash neofetch software-properties-common
+    apt-get install -y git curl ffmpeg wget bash
 
-# Copy requirements and install Python dependencies
+# Copy requirements file and install Python dependencies
 COPY requirements.txt .
-RUN pip3 install wheel && pip3 install --no-cache-dir -U -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Ensure Flask is installed (if not already in requirements.txt)
-RUN pip3 install flask
-
-# Set working directory and copy the application code
+# Set working directory and copy your application code
 WORKDIR /app
 COPY . .
 
-# Expose the port for the Flask app
+# Expose the port for your Flask application
 EXPOSE 8000
 
-# Run both the Flask app and the Telegram bot concurrently
-CMD ["sh", "-c", "python3 app.py & python3 -m Restriction"]
+# Start both the Flask app and the worker process concurrently.
+CMD ["sh", "-c", "python app.py & python -m FileStoreBox"]
