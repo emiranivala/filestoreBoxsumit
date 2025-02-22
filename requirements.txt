@@ -3,3 +3,4 @@ pyromod
 tgcrypto
 aiohttp
 motor
+flask>=2.0.0
