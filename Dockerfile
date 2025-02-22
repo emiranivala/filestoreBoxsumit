@@ -1,7 +1,7 @@
 FROM python:3.10.4-slim-buster
 
-# Update and install required OS packages
-RUN apt update && apt upgrade -y && \
+# Update and install required OS packages (without full upgrade)
+RUN apt update && \
     apt-get install -y git curl python3-pip ffmpeg wget bash neofetch software-properties-common
 
 # Copy requirements and install Python dependencies
@@ -18,5 +18,5 @@ COPY . .
 # Expose the port for the Flask app
 EXPOSE 8000
 
-# Run both the Flask app (app.py) and the Telegram bot concurrently
+# Run both the Flask app and the Telegram bot concurrently
 CMD ["sh", "-c", "python3 app.py & python3 -m Restriction"]
